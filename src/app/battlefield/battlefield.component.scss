@@ -12,25 +12,27 @@ $colorForestGreen: #2e4600;
   background-size: auto 100%;
 }
 
-#end-turn-button {
-  //   display: inline-block;
-  display: block;
-  float: right;
-  margin: 10px;
-  padding: 5px;
-  background-color: red;
-  width: 125px;
-  height: 75px;
+.draw-pile-container {
+  display: flex;
+  position: absolute;
+  left: 10px;
+  bottom: 0px;
+  background-color: $colorDarkNavy;
 }
 
-.moon-img {
-  position: fixed;
-  left: 150px;
-  top: 20px;
-  z-index: 1;
+.hand-container {
+  position: absolute;
+  bottom: 0px;
+  left: 200px;
+  right: 200px;
+  height: 220px;
 }
 
-.forest-img {
-  height: 100%;
-  width: 100%;
+.discard-pile-container {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background-color: $colorDarkNavy;
 }

@@ -1,0 +1,13 @@
+.pile {
+  overflow: hidden;
+  width: 150px;
+  height: 100px;
+}
+
+.pile img {
+  width: 100%;
+}
+
+.pile:hover {
+  height: 200px;
+}

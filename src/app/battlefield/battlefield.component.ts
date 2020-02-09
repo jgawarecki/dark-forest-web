@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CARDS } from "../mock-cards";
+import { CARDS, HAND } from "../mock-cards";
 import { Card } from "../Card";
 
 @Component({
@@ -9,6 +9,7 @@ import { Card } from "../Card";
 })
 export class BattlefieldComponent implements OnInit {
   cards = CARDS;
+  hand = HAND;
   constructor() {}
 
   ngOnInit() {}

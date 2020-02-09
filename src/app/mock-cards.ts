@@ -47,3 +47,36 @@ export const CARDS: Card[] = [
     imgName: "elder_bark_boots.png"
   }
 ];
+
+export const HAND: Card[] = [
+  {
+    id: 1,
+    name: "whack",
+    imgName: "whack.png"
+  },
+  {
+    id: 2,
+    name: "flip",
+    imgName: "flip.png"
+  },
+  {
+    id: 3,
+    name: "bolt",
+    imgName: "bolt.png"
+  },
+  {
+    id: 4,
+    name: "fuzzy button mushroom",
+    imgName: "fuzzy_button_mushroom.png"
+  },
+  {
+    id: 5,
+    name: "glowing umbrella mushroom",
+    imgName: "glowing_umbrella_mushroom.png"
+  },
+  {
+    id: 6,
+    name: "porous bundle mushroom",
+    imgName: "porous_bundle_mushroom.png"
+  }
+];

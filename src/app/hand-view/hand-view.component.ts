@@ -7,8 +7,13 @@ import { Card } from "../Card";
   styleUrls: ["./hand-view.component.scss"]
 })
 export class HandViewComponent implements OnInit {
-  @Input() cards: Card[];
+  @Input() hand: Card[];
+  selectedCard: Card;
   constructor() {}
 
   ngOnInit() {}
+
+  onSelect(card: Card): void {
+    this.selectedCard = card;
+  }
 }

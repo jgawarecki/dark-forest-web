@@ -1,3 +1,13 @@
 <div class="game-container">
-  <app-hand-view></app-hand-view>
+  <div class="draw-pile-container">
+    <app-pile></app-pile>
+  </div>
+
+  <div class="hand-container">
+    <app-hand-view [hand]="hand"></app-hand-view>
+  </div>
+
+  <div class="discard-pile-container">
+    <app-pile></app-pile>
+  </div>
 </div>

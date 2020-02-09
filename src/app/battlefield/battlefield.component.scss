@@ -1,0 +1,36 @@
+$colorBlueberry: #063852;
+$colorDarkNavy: #011a27;
+$colorShadow: #2a3132;
+$colorForestGreen: #2e4600;
+
+.game-container {
+  // margin: auto;
+  position: relative;
+  background-image: url("/assets/bg/forest1.png");
+  width: 100vw;
+  height: 100vh;
+  background-size: auto 100%;
+}
+
+#end-turn-button {
+  //   display: inline-block;
+  display: block;
+  float: right;
+  margin: 10px;
+  padding: 5px;
+  background-color: red;
+  width: 125px;
+  height: 75px;
+}
+
+.moon-img {
+  position: fixed;
+  left: 150px;
+  top: 20px;
+  z-index: 1;
+}
+
+.forest-img {
+  height: 100%;
+  width: 100%;
+}

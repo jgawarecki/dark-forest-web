@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from "@angular/core";
+import { Card } from "../Card";
 
 @Component({
-  selector: 'app-pile',
-  templateUrl: './pile.component.html',
-  styleUrls: ['./pile.component.scss']
+  selector: "app-pile",
+  templateUrl: "./pile.component.html",
+  styleUrls: ["./pile.component.scss"]
 })
 export class PileComponent implements OnInit {
+  @Input() cards: Card[];
+  topCard: Card;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
+    this.topCard = this.cards[0];
   }
-
 }

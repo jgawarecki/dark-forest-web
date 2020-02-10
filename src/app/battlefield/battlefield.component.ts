@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CARDS, HAND } from "../mock-cards";
+import { DISCARD, HAND, DRAW } from "../mock-cards";
 import { Card } from "../Card";
 
 @Component({
@@ -8,8 +8,11 @@ import { Card } from "../Card";
   styleUrls: ["./battlefield.component.scss"]
 })
 export class BattlefieldComponent implements OnInit {
-  cards = CARDS;
+  discardPile = DISCARD;
   hand = HAND;
+  drawPile = DRAW;
+  showDiscardPile = false;
+  showDrawPile = false;
   constructor() {}
 
   ngOnInit() {}

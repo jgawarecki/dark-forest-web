@@ -13,7 +13,6 @@ $colorForestGreen: #2e4600;
 }
 
 .draw-pile-container {
-  display: flex;
   position: absolute;
   left: 10px;
   bottom: 0px;
@@ -29,10 +28,52 @@ $colorForestGreen: #2e4600;
 }
 
 .discard-pile-container {
-  display: flex;
-  flex-direction: row;
   position: absolute;
   right: 10px;
   bottom: 10px;
   background-color: $colorDarkNavy;
+}
+
+.discard-pile-view-container {
+  // width: 40vw;
+  background-color: rgba(136, 136, 136, 0.5);
+  position: absolute;
+  z-index: 99;
+  bottom: 220px;
+  top: 1vh;
+  left: 55vw;
+  right: 1vw;
+  overflow: hidden;
+}
+
+.draw-pile-view-container {
+  // width: 40vw;
+  background-color: rgba(136, 136, 136, 0.5);
+  position: absolute;
+  z-index: 99;
+  bottom: 220px;
+  top: 1vh;
+  left: 1vw;
+  right: 55vw;
+  overflow: hidden;
+}
+
+.pile {
+  overflow: hidden;
+  // position: relative;
+  width: 150px;
+  height: 100px;
+}
+
+.pile img {
+  width: 100%;
+}
+
+.pile:hover {
+  height: 200px;
+}
+
+.selected {
+  border: 2px solid sandybrown;
+  height: 200px;
 }

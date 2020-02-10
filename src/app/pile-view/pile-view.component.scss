@@ -1,0 +1,18 @@
+.pile-card img {
+  width: 100%;
+}
+
+.pile-card {
+  display: inline-block;
+  margin: 5px;
+  width: 125px;
+  // opacity: 1;
+}
+
+.pile-view {
+  // opacity: 0.5;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  overflow: hidden;
+}

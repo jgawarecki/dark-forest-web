@@ -1,0 +1,7 @@
+<div class="pile-view">
+  <div class="pile-card" *ngFor="let card of cards" (click)="onSelect(card)">
+    <div>
+      <img src="./assets/cards/{{ card.imgName }}" />
+    </div>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 export class Card {
-  id: number;
+  id?: number;
   name: string;
-  description: string;
-  imgName: string;
-  imgBack: string;
+  description?: string;
+  imgName?: string;
+  imgBack?: string;
 }

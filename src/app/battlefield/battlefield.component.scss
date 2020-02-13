@@ -31,6 +31,7 @@ $colorForestGreen: #2e4600;
   position: absolute;
   right: 10px;
   bottom: 10px;
+  z-index: 99;
   background-color: $colorDarkNavy;
 }
 
@@ -56,6 +57,29 @@ $colorForestGreen: #2e4600;
   left: 1vw;
   right: 55vw;
   overflow: hidden;
+}
+
+.end-turn-btn-container {
+  position: absolute;
+  right: 10px;
+  bottom: 150px;
+  z-index: 1;
+  // background-color: $colorDarkNavy;
+}
+.end-turn-btn {
+  margin: 5px;
+  text-decoration: none;
+  // background-color: red;
+  padding: 20px 30px;
+  font-size: 22px;
+  background: #c03b3b;
+  color: #f8f8f2;
+  box-shadow: 0px 4px 0px #e04342;
+}
+
+.end-turn-btn:active {
+  box-shadow: 0 0 #751919;
+  background-color: #9c1010;
 }
 
 .pile {

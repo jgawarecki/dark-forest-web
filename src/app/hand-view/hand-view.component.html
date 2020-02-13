@@ -3,6 +3,7 @@
     *ngFor="let card of hand"
     [class.selected]="card === selectedCard"
     (mousedown)="onSelect(card)"
+    (dblclick)="playCard(card)"
     class="card-container"
   >
     <img src="./assets/cards/{{ card.imgName }}" />

@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { DealerService } from "./../dealer.service";
 import { Card } from "../Card";
+// import { EventEmitter } from "protractor";
 
 @Component({
   selector: "app-hand-view",
@@ -8,12 +10,18 @@ import { Card } from "../Card";
 })
 export class HandViewComponent implements OnInit {
   @Input() hand: Card[];
+  @Output() playCardEvent = new EventEmitter<string>();
+  // @Output() messageEvent = new EventEmitter<>();
   selectedCard: Card;
-  constructor() {}
+  constructor(private dealerService: DealerService) {}
 
   ngOnInit() {}
 
   onSelect(card: Card): void {
     this.selectedCard = card;
+  }
+  playCard(card: Card) {
+    console.log("play card " + card.id);
+    this.playCardEvent.emit(card.id + "");
   }
 }

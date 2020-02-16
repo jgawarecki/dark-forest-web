@@ -1,8 +1,10 @@
+import { async } from "@angular/core/testing";
 import { DISCARD } from "./../mock-cards";
 import { DealerService } from "./../dealer.service";
 import { Component, OnInit } from "@angular/core";
 // import { DISCARD, HAND, DRAW } from "../mock-cards";
 import { Card } from "../Card";
+import { Observable, Subject, AsyncSubject } from "rxjs";
 import { CardSplit } from "../CardSplit";
 
 @Component({
@@ -11,71 +13,32 @@ import { CardSplit } from "../CardSplit";
   styleUrls: ["./battlefield.component.scss"]
 })
 export class BattlefieldComponent implements OnInit {
-  discardPile: Card[];
-  hand: Card[];
-  drawPile: Card[];
+  battlefieldCards: CardSplit = new CardSplit();
+  // discardPile: Card[] = this.battlefieldCards.discardPile;
+  // hand: Card[] = this.battlefieldCards.hand;
+  // drawPile: Card[] = this.battlefieldCards.drawPile;
+
   // cardSplit: CardSplit;
   showDiscardPile = false;
   showDrawPile = false;
   endingTurn = false;
-  constructor(private dealerService: DealerService) {}
 
-  updateCards() {
-    this.dealerService.getSplit().subscribe(
-      (split: CardSplit) => (
-        (this.hand = (split as any).hand),
-        (this.discardPile = (split as any).discardPile),
-        (this.drawPile = (split as any).drawPile)
-      ),
-      // The 2nd callback handles errors.
-      err => console.log(err),
-      // The 3rd callback handles the "complete" event.
-      () => (
-        console.log(this.hand),
-        console.log(this.drawPile),
-        console.log(this.discardPile)
-      )
+  constructor(private dealerService: DealerService) {
+    dealerService.SplitSream.subscribe(
+      (split: CardSplit) => (this.battlefieldCards = split)
     );
   }
 
   async discardHand() {
-    this.dealerService.discardHand().subscribe(
-      (split: CardSplit) => (
-        (this.hand = (split as any).hand),
-        (this.discardPile = (split as any).discardPile),
-        (this.drawPile = (split as any).drawPile)
-      ),
-      // The 2nd callback handles errors.
-      err => console.log(err),
-      // The 3rd callback handles the "complete" event.
-      () => (
-        console.log(this.hand),
-        console.log(this.drawPile),
-        console.log(this.discardPile)
-      )
-    );
+    this.dealerService.discardHand();
   }
 
   async playCardFromHand(id: string) {
-    console.log("playing card on battlefield " + id);
+    this.dealerService.discardCard(id);
   }
 
   async drawHand() {
-    this.dealerService.drawHand().subscribe(
-      (split: CardSplit) => (
-        (this.hand = (split as any).hand),
-        (this.discardPile = (split as any).discardPile),
-        (this.drawPile = (split as any).drawPile)
-      ),
-      // The 2nd callback handles errors.
-      err => console.log(err),
-      // The 3rd callback handles the "complete" event.
-      () => (
-        console.log(this.hand),
-        console.log(this.drawPile),
-        console.log(this.discardPile)
-      )
-    );
+    this.dealerService.drawHand();
   }
 
   async endTurn() {
@@ -86,11 +49,6 @@ export class BattlefieldComponent implements OnInit {
     this.endingTurn = false;
   }
   ngOnInit() {
-    // this.dealerService
-    //   .getDiscardPile()
-    //   .subscribe(DISCARD => (this.discardPile = DISCARD));
-    // this.dealerService.getDrawPile().subscribe(DRAW => (this.drawPile = DRAW));
-    // this.dealerService.getHand().subscribe(HAND => (this.hand = HAND));
     this.drawHand();
   }
   ngAfterViewInit() {
@@ -98,8 +56,6 @@ export class BattlefieldComponent implements OnInit {
   }
 
   async delay(ms: number) {
-    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() =>
-      console.log("fired")
-    );
+    await new Promise(resolve => setTimeout(() => resolve(), ms));
   }
 }

@@ -1,6 +1,9 @@
 <div class="pile-view">
   <div class="pile-card" *ngFor="let card of cards" (click)="onSelect(card)">
-    <div>
+    <div *ngIf="isDrawPile">
+      <img src="./assets/cards/{{ card.imgBack }}" />
+    </div>
+    <div *ngIf="!isDrawPile">
       <img src="./assets/cards/{{ card.imgName }}" />
     </div>
   </div>

@@ -2,49 +2,64 @@ import { DRAW, DISCARD, HAND } from "./mock-cards";
 import { Injectable } from "@angular/core";
 import { Card } from "./Card";
 import { CardSplit } from "./CardSplit";
-import { Observable, of } from "rxjs";
+import { Observable, Subject, of, Observer } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
 })
 export class DealerService {
-  discardHandUrl = "https://localhost:44321/api/dealer/discardHand";
-  drawHandUrl = "https://localhost:44321/api/dealer/drawHand";
-  getSplitUrl = "https://localhost:44321/api/dealer/draw";
+  baseUrl = "https://localhost:44321/api/dealer";
+  discardHandUrl = this.baseUrl + "/discardHand";
+  drawHandUrl = this.baseUrl + "/drawHand";
+  getSplitUrl = this.baseUrl + "/getsplit";
+  drawCountUrl = this.baseUrl + "/draw?count=";
+  discardCardUrl = this.baseUrl + "/play?cardId=";
 
-  constructor(private http: HttpClient) {}
-  // getDiscardPile(): Observable<Card[]> {
-  //   return of(DISCARD);
-  // }
-  // getDrawPile(): Observable<Card[]> {
-  //   return of(DRAW);
-  // }
-  // getHand(): Observable<Card[]> {
-  //   return of(HAND);
-  // }
-  getSplit(): Observable<CardSplit> {
-    let response = this.http.get<CardSplit>(this.getSplitUrl);
-    console.log(response);
-    return response;
-    // let split: CardSplit;
-    // this.http.get(this.url).subscribe(
-    //   result => {
-    //     split = result.json() as CardSplit;
-    //   },
-    //   error => console.error(error)
-    // );
+  // discardPile = new Observable<Card[]>();
+  // hand = new Observable<Card[]>();
+  // drawPile = new Observable<Card[]>();
+
+  SplitSream = new Subject<CardSplit>();
+
+  constructor(private http: HttpClient) {
+    this.SplitSream.next(new CardSplit());
   }
 
-  drawHand(): Observable<CardSplit> {
-    let response = this.http.get<CardSplit>(this.drawHandUrl);
-    console.log(response);
-    return response;
+  drawHand() {
+    console.log("draw hand");
+    this.updateSplit(this.drawHandUrl);
   }
 
-  discardHand(): Observable<CardSplit> {
-    let response = this.http.get<CardSplit>(this.discardHandUrl);
-    console.log(response);
-    return response;
+  draw(count: number) {
+    console.log("draw " + count);
+    this.updateSplit(this.drawCountUrl + count);
+  }
+
+  discardHand() {
+    console.log("discard hand");
+    this.updateSplit(this.discardHandUrl);
+  }
+
+  discardCard(cardId: string) {
+    console.log("discard card: " + cardId);
+    this.updateSplit(this.discardCardUrl + cardId);
+  }
+
+  updateSplit(requestUrl: string) {
+    let updatedSplit: CardSplit = new CardSplit();
+    this.http.get<CardSplit>(requestUrl).subscribe(
+      (split: CardSplit) => (
+        console.log(split),
+        (updatedSplit.drawPile = (split as any).drawPile),
+        (updatedSplit.hand = (split as any).hand),
+        (updatedSplit.discardPile = (split as any).discardPile)
+      ),
+      // The 2nd callback handles errors.
+      err => console.log(err),
+      // The 3rd callback handles the "complete" event.
+      () => console.log(updatedSplit)
+    );
+    this.SplitSream.next(updatedSplit);
   }
 }

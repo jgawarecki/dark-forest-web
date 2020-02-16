@@ -1,38 +1,53 @@
 <div class="game-container">
-  <div *ngIf="drawPile && drawPile.length">
+  <div *ngIf="battlefieldCards.drawPile && battlefieldCards.drawPile.length">
     <div class="draw-pile-container" (click)="showDrawPile = !showDrawPile">
       <div class="pile" [class.selected]="showDrawPile">
-        <img src="./assets/cards/{{ drawPile[0].imgName }}" />
+        <img src="./assets/cards/{{ battlefieldCards.drawPile[0].imgBack }}" />
       </div>
     </div>
     <div *ngIf="showDrawPile">
       <div class="draw-pile-view-container">
-        <app-pile-view [cards]="drawPile"> </app-pile-view>
+        <app-pile-view [cards]="battlefieldCards.drawPile" [isDrawPile]="true">
+        </app-pile-view>
       </div>
     </div>
   </div>
 
-  <div *ngIf="hand && hand.length">
+  <div class="player-container"></div>
+
+  <div *ngIf="battlefieldCards.hand && battlefieldCards.hand.length">
     <div class="hand-container">
       <app-hand-view
-        [hand]="hand"
+        [hand]="battlefieldCards.hand"
         (playCardEvent)="playCardFromHand($event)"
       ></app-hand-view>
     </div>
   </div>
 
-  <div *ngIf="discardPile && discardPile.length">
+  <div>
     <div
       class="discard-pile-container"
       (click)="showDiscardPile = !showDiscardPile"
     >
-      <div class="pile" [class.selected]="showDiscardPile">
-        <img src="./assets/cards/{{ discardPile[0].imgName }}" />
+      <div
+        class="pile"
+        [class.selected]="showDiscardPile"
+        *ngIf="
+          battlefieldCards.discardPile && battlefieldCards.discardPile.length
+        "
+      >
+        <img
+          src="./assets/cards/{{ battlefieldCards.discardPile[0].imgName }}"
+        />
       </div>
     </div>
     <div *ngIf="showDiscardPile">
       <div class="discard-pile-view-container">
-        <app-pile-view [cards]="discardPile"> </app-pile-view>
+        <app-pile-view
+          [cards]="battlefieldCards.discardPile"
+          [isDrawPile]="false"
+        >
+        </app-pile-view>
       </div>
     </div>
   </div>

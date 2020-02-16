@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class PileViewComponent implements OnInit {
   @Input() cards: Card[];
-
+  @Input() isDrawPile: boolean;
   constructor() {}
 
   ngOnInit() {}

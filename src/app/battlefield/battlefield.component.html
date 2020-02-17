@@ -13,15 +13,22 @@
     </div>
   </div>
 
-  <div class="player-container"></div>
+  <div class="player-stat-container">
+    Health: something
+  </div>
+  <div class="player-container">
+    <img src="./assets/characters/player_lady.gif" />
+  </div>
 
-  <div *ngIf="battlefieldCards.hand && battlefieldCards.hand.length">
-    <div class="hand-container">
-      <app-hand-view
-        [hand]="battlefieldCards.hand"
-        (playCardEvent)="playCardFromHand($event)"
-      ></app-hand-view>
-    </div>
+  <div class="monster-stat-container">
+    Health: something
+  </div>
+  <div class="monster-container">
+    <img src="./assets/characters/character.gif" />
+  </div>
+
+  <div class="hand-container">
+    <app-hand-view></app-hand-view>
   </div>
 
   <div>

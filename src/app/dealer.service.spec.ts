@@ -1,12 +1,12 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { DealerService } from './dealer.service';
+import { CombatService } from "./combat.service";
 
-describe('DealerService', () => {
+describe("DealerService", () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
-    const service: DealerService = TestBed.get(DealerService);
+  it("should be created", () => {
+    const service: CombatService = TestBed.get(CombatService);
     expect(service).toBeTruthy();
   });
 });

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Card } from "../Card";
+import { Card } from "../models/Card";
 
 @Component({
   selector: "app-pile",

@@ -1,6 +1,6 @@
-<div class="hand-box">
+<div class="hand-box" *ngIf="cards && cards.hand">
   <div
-    *ngFor="let card of hand"
+    *ngFor="let card of cards.hand"
     [class.selected]="card === selectedCard"
     (mousedown)="onSelect(card)"
     (dblclick)="playCard(card)"

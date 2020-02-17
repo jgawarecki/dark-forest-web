@@ -1,11 +1,11 @@
 import { async } from "@angular/core/testing";
-import { DISCARD } from "./../mock-cards";
-import { DealerService } from "./../dealer.service";
+import { CombatService } from "../combat.service";
 import { Component, OnInit } from "@angular/core";
 // import { DISCARD, HAND, DRAW } from "../mock-cards";
-import { Card } from "../Card";
+import { Card } from "../models/Card";
 import { Observable, Subject, AsyncSubject } from "rxjs";
-import { CardSplit } from "../CardSplit";
+import { CardSplit } from "../models/CardSplit";
+import { Combatant } from "../models/Combatant";
 
 @Component({
   selector: "app-battlefield",
@@ -14,7 +14,8 @@ import { CardSplit } from "../CardSplit";
 })
 export class BattlefieldComponent implements OnInit {
   battlefieldCards: CardSplit = new CardSplit();
-  // discardPile: Card[] = this.battlefieldCards.discardPile;
+  battlefieldCombatants: Combatant[]; // discardPile: Card[] = this.battlefieldCards.discardPile;
+
   // hand: Card[] = this.battlefieldCards.hand;
   // drawPile: Card[] = this.battlefieldCards.drawPile;
 
@@ -23,33 +24,30 @@ export class BattlefieldComponent implements OnInit {
   showDrawPile = false;
   endingTurn = false;
 
-  constructor(private dealerService: DealerService) {
-    dealerService.SplitSream.subscribe(
+  constructor(private combatService: CombatService) {
+    combatService.SplitSream.subscribe(
       (split: CardSplit) => (this.battlefieldCards = split)
     );
   }
 
-  async discardHand() {
-    this.dealerService.discardHand();
-  }
-
-  async playCardFromHand(id: string) {
-    this.dealerService.discardCard(id);
-  }
-
-  async drawHand() {
-    this.dealerService.drawHand();
-  }
-
   async endTurn() {
-    this.endingTurn = true;
-    await this.discardHand();
-    await this.delay(1000);
-    await this.drawHand();
-    this.endingTurn = false;
+    this.combatService.endTurn();
   }
+
+  // async drawHand() {
+  //   this.combatService.drawHand();
+  // }
+
+  // async endTurn() {
+  //   this.endingTurn = true;
+  //   await this.discardHand();
+  //   await this.delay(1000);
+  //   await this.drawHand();
+  //   this.endingTurn = false;
+  // }
+
   ngOnInit() {
-    this.drawHand();
+    this.combatService.enterBattlefield();
   }
   ngAfterViewInit() {
     // this.updateCards();

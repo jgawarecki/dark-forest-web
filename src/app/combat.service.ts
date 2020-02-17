@@ -1,20 +1,19 @@
-import { DRAW, DISCARD, HAND } from "./mock-cards";
 import { Injectable } from "@angular/core";
-import { Card } from "./Card";
-import { CardSplit } from "./CardSplit";
+import { Card } from "./models/Card";
+import { CardSplit } from "./models/CardSplit";
 import { Observable, Subject, of, Observer } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
 })
-export class DealerService {
-  baseUrl = "https://localhost:44321/api/dealer";
-  discardHandUrl = this.baseUrl + "/discardHand";
-  drawHandUrl = this.baseUrl + "/drawHand";
-  getSplitUrl = this.baseUrl + "/getsplit";
-  drawCountUrl = this.baseUrl + "/draw?count=";
-  discardCardUrl = this.baseUrl + "/play?cardId=";
+export class CombatService {
+  baseUrl = "https://localhost:44321/api/battlefield";
+
+  playCardUrl = this.baseUrl + "/play?cardId=";
+  endTurnUrl = this.baseUrl + "/endTurn";
+  refreshStateUrl = this.baseUrl + "/state";
+  enterBattlefieldUrl = this.baseUrl + "/enterBattlefield";
 
   // discardPile = new Observable<Card[]>();
   // hand = new Observable<Card[]>();
@@ -26,39 +25,39 @@ export class DealerService {
     this.SplitSream.next(new CardSplit());
   }
 
-  drawHand() {
-    console.log("draw hand");
-    this.updateSplit(this.drawHandUrl);
+  playCard(cardId: string) {
+    console.log("play card" + cardId);
+    this.updateSplit(this.playCardUrl + cardId);
   }
 
-  draw(count: number) {
-    console.log("draw " + count);
-    this.updateSplit(this.drawCountUrl + count);
+  endTurn() {
+    console.log("End Turn");
+    this.updateSplit(this.refreshStateUrl + "?endTurn=true");
   }
 
-  discardHand() {
-    console.log("discard hand");
-    this.updateSplit(this.discardHandUrl);
+  refreshState() {
+    console.log("Refresh State");
+    this.updateSplit(this.refreshStateUrl);
   }
 
-  discardCard(cardId: string) {
-    console.log("discard card: " + cardId);
-    this.updateSplit(this.discardCardUrl + cardId);
+  enterBattlefield() {
+    console.log("enter battlefield");
+    this.updateSplit(this.enterBattlefieldUrl);
   }
 
   updateSplit(requestUrl: string) {
     let updatedSplit: CardSplit = new CardSplit();
     this.http.get<CardSplit>(requestUrl).subscribe(
       (split: CardSplit) => (
-        console.log(split),
+        // console.log(split),
         (updatedSplit.drawPile = (split as any).drawPile),
         (updatedSplit.hand = (split as any).hand),
         (updatedSplit.discardPile = (split as any).discardPile)
-      ),
+      )
       // The 2nd callback handles errors.
-      err => console.log(err),
+      // err => console.log(err),
       // The 3rd callback handles the "complete" event.
-      () => console.log(updatedSplit)
+      // () => console.log(updatedSplit)
     );
     this.SplitSream.next(updatedSplit);
   }

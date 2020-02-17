@@ -1,4 +1,4 @@
-import { Card } from "../Card";
+import { Card } from "../models/Card";
 import { Component, OnInit, Input } from "@angular/core";
 
 @Component({

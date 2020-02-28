@@ -3,7 +3,8 @@ export class Combatant {
   name: string;
   description?: string;
   imgName?: string;
-  imgBack?: string;
-  hp: number;
-  dodge: number;
+  health: number;
+  maxHealth: number;
+  energy: number;
+  maxEnergy: number;
 }

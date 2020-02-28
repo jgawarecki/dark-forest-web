@@ -1,3 +1,4 @@
+import { BattleState } from "./../models/BattleState";
 import { async } from "@angular/core/testing";
 import { CombatService } from "../combat.service";
 import { Component, OnInit } from "@angular/core";
@@ -13,8 +14,15 @@ import { Combatant } from "../models/Combatant";
   styleUrls: ["./battlefield.component.scss"]
 })
 export class BattlefieldComponent implements OnInit {
-  battlefieldCards: CardSplit = new CardSplit();
-  battlefieldCombatants: Combatant[]; // discardPile: Card[] = this.battlefieldCards.discardPile;
+  // battlefieldCards: CardSplit = new CardSplit();
+  drawPile: Card[];
+  hand: Card[];
+  discardPile: Card[];
+  players: Combatant[];
+  foes: Combatant[];
+  battleState: BattleState;
+
+  // battlefieldCombatants: Combatant[]; // discardPile: Card[] = this.battlefieldCards.discardPile;
 
   // hand: Card[] = this.battlefieldCards.hand;
   // drawPile: Card[] = this.battlefieldCards.drawPile;
@@ -25,9 +33,15 @@ export class BattlefieldComponent implements OnInit {
   endingTurn = false;
 
   constructor(private combatService: CombatService) {
-    combatService.SplitSream.subscribe(
-      (split: CardSplit) => (this.battlefieldCards = split)
-    );
+    combatService.State.subscribe((state: BattleState) => {
+      this.battleState = state;
+      this.players = state.players;
+      this.foes = state.foes;
+      this.drawPile = state.cardSplit.drawPile;
+      this.hand = state.cardSplit.hand;
+      this.discardPile = state.cardSplit.discardPile;
+      console.log(this.hand);
+    });
   }
 
   async endTurn() {

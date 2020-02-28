@@ -1,3 +1,4 @@
+import { BattleState } from "./../models/BattleState";
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { CombatService } from "../combat.service";
 import { Card } from "../models/Card";
@@ -11,14 +12,14 @@ import { CardSplit } from "../models/CardSplit";
 })
 export class HandViewComponent implements OnInit {
   // @Input() hand: Card[];
-  cards: CardSplit = new CardSplit();
+  // cards: CardSplit = new CardSplit();
   hand: Card[];
   // @Output() playCardEvent = new EventEmitter<string>();
   // @Output() messageEvent = new EventEmitter<>();
   selectedCard: Card;
   constructor(private combatService: CombatService) {
-    this.combatService.SplitSream.subscribe((split: CardSplit) => {
-      this.cards = split;
+    this.combatService.State.subscribe((state: BattleState) => {
+      this.hand = state.cardSplit.hand;
     });
   }
 

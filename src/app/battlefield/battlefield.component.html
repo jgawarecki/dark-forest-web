@@ -1,30 +1,36 @@
 <div class="game-container">
-  <div *ngIf="battlefieldCards.drawPile && battlefieldCards.drawPile.length">
+  <div *ngIf="drawPile && drawPile.length">
     <div class="draw-pile-container" (click)="showDrawPile = !showDrawPile">
       <div class="pile" [class.selected]="showDrawPile">
-        <img src="./assets/cards/{{ battlefieldCards.drawPile[0].imgBack }}" />
+        <img src="./assets/cards/{{ drawPile[0].imgBack }}" />
       </div>
     </div>
     <div *ngIf="showDrawPile">
       <div class="draw-pile-view-container">
-        <app-pile-view [cards]="battlefieldCards.drawPile" [isDrawPile]="true">
-        </app-pile-view>
+        <app-pile-view [cards]="drawPile" [isDrawPile]="true"> </app-pile-view>
       </div>
     </div>
   </div>
 
   <div class="player-stat-container">
-    Health: something
+    <ul *ngIf="players && players.length">
+      <li>{{ players[0].name }}</li>
+      <li>Health {{ players[0].health }} / {{ players[0].maxHealth }}</li>
+      <li>Energy {{ players[0].energy }}</li>
+    </ul>
   </div>
   <div class="player-container">
-    <img src="./assets/characters/player_lady.gif" />
+    <img src="./assets/characters/sam.gif" />
   </div>
 
   <div class="monster-stat-container">
-    Health: something
+    <ul *ngIf="foes && foes.length">
+      <li>{{ foes[0].name }}</li>
+      <li>Health {{ foes[0].health }} / {{ foes[0].maxHealth }}</li>
+    </ul>
   </div>
   <div class="monster-container">
-    <img src="./assets/characters/character.gif" />
+    <img src="./assets/characters/hydra.gif" />
   </div>
 
   <div class="hand-container">
@@ -39,21 +45,14 @@
       <div
         class="pile"
         [class.selected]="showDiscardPile"
-        *ngIf="
-          battlefieldCards.discardPile && battlefieldCards.discardPile.length
-        "
+        *ngIf="discardPile && discardPile.length"
       >
-        <img
-          src="./assets/cards/{{ battlefieldCards.discardPile[0].imgName }}"
-        />
+        <img src="./assets/cards/{{ discardPile[0].imgName }}" />
       </div>
     </div>
     <div *ngIf="showDiscardPile">
       <div class="discard-pile-view-container">
-        <app-pile-view
-          [cards]="battlefieldCards.discardPile"
-          [isDrawPile]="false"
-        >
+        <app-pile-view [cards]="discardPile" [isDrawPile]="false">
         </app-pile-view>
       </div>
     </div>

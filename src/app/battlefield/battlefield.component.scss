@@ -122,6 +122,7 @@ $colorForestGreen: #2e4600;
 
 .monster-container img {
   height: 100%;
+  transform: scaleX(-1);
 }
 
 .player-stat-container {
